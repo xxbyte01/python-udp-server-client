@@ -1,5 +1,11 @@
+# Author: Suchin Th.
+# Date 31 Aug 2024
+# version 0.1
+# Description: Add version printing in code.
+
 import socket
 
+VERSION = "0.1"
 IP = "127.0.0.1"
 PORT = 5000
 buffer_size = 1024
@@ -7,7 +13,7 @@ buffer_size = 1024
 UDP_Server = socket.socket(family=socket.AF_INET,type=socket.SOCK_DGRAM)
 Server_Address = (IP,PORT)
 UDP_Server.bind(Server_Address)
-print("UDP Server running...")
+print(f"UDP Server running... VERSION ({VERSION})")
 print(f"listening ... address {Server_Address}")
 
 while True:

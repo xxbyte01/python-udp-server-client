@@ -1,11 +1,17 @@
+# Author: Suchin Th.
+# Date 31 Aug 2024
+# version 0.1
+# Description: Add version printing in code.
+
 import socket
 
+VERSION = "0.1"
 SERVER_IP = "127.0.0.1"
 SERVER_PORT = 5000
 buffer_size = 1024
 
 UDP_Client = socket.socket(family=socket.AF_INET,type=socket.SOCK_DGRAM)
-print("UDP_Client running ...")
+print(f"UDP_Client running ... VERSION ({VERSION})")
 print(f"-- client to server address {SERVER_IP} port {SERVER_PORT}")
 while(True):
   message_send = input("Enter:")
