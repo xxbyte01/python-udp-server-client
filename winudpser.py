@@ -1,16 +1,17 @@
 # Author: Suchin Th.
-# Date 02 Sep 2024
-# version 0.2
-# Description: Added text box for Server IP and Server Port
+# Date 04 Sep 2024
+# version 0.3
+# Description: Set default value for textbox IP and textbox Port
+#              , Implemented server message as echo client message  
 
 from tkinter import *
 from tkinter import messagebox
 import socket
 import threading
-VERSION = "0.2"
+VERSION = "0.3"
 
-Server_Port = 5000
-Server_IP = "127.0.0.1"
+Server_Port = 1000
+Server_IP = "0.0.0.0"
 # // Server_Address = (Server_IP,Server_Port)
 
 win = Tk()
@@ -29,6 +30,7 @@ m_Label_IP.grid(column=0,row=0)
 m_Edit_IP = Text(master=m_Fram_First)
 m_Edit_IP.config(height=1,width=50)
 m_Edit_IP.grid(column=1,row=0)
+m_Edit_IP.insert(END,"127.0.0.1")
 
 m_label_Port = Label(master=m_Fram_First, text="Port :")
 m_label_Port.grid(column=0,row=1)
@@ -36,6 +38,7 @@ m_label_Port.grid(column=0,row=1)
 m_Edit_Port = Text(master=m_Fram_First)
 m_Edit_Port.config(height=1,width=50)
 m_Edit_Port.grid(column=1,row=1)
+m_Edit_Port.insert(END,"5000")
 
 m_Fram_Second = Frame(master=win)
 m_Fram_Second.pack()
@@ -63,7 +66,7 @@ def Server_Recv(textbox):
       while(True):
         client_message_byte, client_address = server.recvfrom(buffer_size)
         
-        server_acknowledge_message = "server acknowledge"
+        server_acknowledge_message = "server echo : " + client_message_byte.decode()
         server_acknowledge_byte = server_acknowledge_message.encode()
         server.sendto(server_acknowledge_byte,client_address)
 
@@ -84,10 +87,10 @@ def Click_Button_Start(event):
       global Server_IP
       global Server_Port
       if Server_Run_Flag == False:
-         if m_Edit_IP.get('1.0',END)[:-1] != "":
-            Server_IP = m_Edit_IP.get('1.0',END)[:-1]
-         if m_Edit_Port.get('1.0',END)[:-1] != "":
-            Server_Port = int(m_Edit_Port.get('1.0',END)[:-1])
+         # // if m_Edit_IP.get('1.0',END)[:-1] != "":
+         Server_IP = m_Edit_IP.get('1.0',END)[:-1]
+         # // if m_Edit_Port.get('1.0',END)[:-1] != "":
+         Server_Port = int(m_Edit_Port.get('1.0',END)[:-1])
          x = threading.Thread(target=Server_Recv,args=(m_Edit,))
          x.start()
       else:
